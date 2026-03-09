@@ -97,6 +97,8 @@ export default function Navbar() {
           gap: 12px;
           text-decoration: none;
           flex-shrink: 0;
+          min-width: 0;
+          max-width: calc(100% - 54px);
         }
 
         .navbar__logo-icon {
@@ -131,21 +133,28 @@ export default function Navbar() {
           display: flex;
           flex-direction: column;
           line-height: 1.15;
+          min-width: 0;
         }
 
         .navbar__logo-name {
           font-family: 'Playfair Display', serif;
-          font-size: 17px;
+          font-size: clamp(12px, 1.5vw, 17px);
           font-weight: 700;
           color: #ffffff;
           letter-spacing: -0.2px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .navbar__logo-tagline {
-          font-size: 11px;
+          font-size: clamp(9px, 1vw, 11px);
           font-weight: 300;
           color: rgba(255,255,255,0.6);
           letter-spacing: 0.4px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         /* Nav Links */
@@ -253,10 +262,36 @@ export default function Navbar() {
           color: #fff;
         }
 
+        @media (max-width: 900px) {
+          .navbar__inner { padding: 0 14px; }
+          .navbar__logo { gap: 7px; max-width: calc(100% - 50px); }
+          .navbar__logo-icon { width: 34px; height: 34px; }
+        }
+
         @media (max-width: 768px) {
           .navbar__links { display: none; }
           .navbar__hamburger { display: flex; }
           .navbar__mobile { display: flex; }
+
+          /* keep both lines visible on mobile */
+          .navbar__logo-name,
+          .navbar__logo-tagline {
+            white-space: normal;
+            overflow: visible;
+            text-overflow: clip;
+            line-height: 1.05;
+          }
+
+          .navbar__logo-name { font-size: 11px; }
+          .navbar__logo-tagline { font-size: 8.5px; letter-spacing: 0.2px; }
+        }
+
+        @media (max-width: 420px) {
+          .navbar__inner { padding: 0 10px; }
+          .navbar__logo { gap: 6px; }
+          .navbar__logo-icon { width: 30px; height: 30px; }
+          .navbar__logo-name { font-size: 10px; }
+          .navbar__logo-tagline { font-size: 8px; }
         }
       `}</style>
 
